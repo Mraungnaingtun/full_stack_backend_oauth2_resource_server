@@ -1,0 +1,47 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.logant'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//Database:
+	runtimeOnly 'org.postgresql:postgresql' // You can use any sql database
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//security:
+	//jwt
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
